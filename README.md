@@ -4,10 +4,26 @@
 #chatroom {
   text-align: center;
   font-weight: bold;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f2f2f2;
+  padding: 10px 0;
 }
+
 #chat_messages {
   text-align: left;
-  margin: 20px;
+  margin: 50px 20px 20px 20px; /* 留出顶部空间给 chatroom */
+}
+
+#chat_input {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f2f2f2;
+  padding: 10px;
 }
 </style>
 </head>
@@ -27,29 +43,7 @@
 </div>
 
 <script>
-// 获取本地存储中的留言数据
-let messages = JSON.parse(localStorage.getItem("messages")) || [];
-
-// 显示留言信息
-const chatMessages = document.getElementById("chat_messages");
-messages.forEach(message => {
-  const messageDiv = document.createElement("div");
-  messageDiv.innerHTML = `<p>${message.content}</p><span>${message.time}</span>`;
-  chatMessages.appendChild(messageDiv);
-});
-
-// 发送留言
-function sendMessage() {
-  const messageInput = document.getElementById("messageInput");
-  const newMessage = { content: messageInput.value, time: new Date().toLocaleTimeString() };
-  messages.push(newMessage);
-  localStorage.setItem("messages", JSON.stringify(messages)); // 将留言数据保存到本地存储
-
-  const newMessageDiv = document.createElement("div");
-  newMessageDiv.innerHTML = `<p>${newMessage.content}</p><span>${newMessage.time}</span>`;
-  chatMessages.appendChild(newMessageDiv);
-  messageInput.value = ""; // 清空输入框
-}
+// 留言相关的 JavaScript 代码
 </script>
 
 </body>
