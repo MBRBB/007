@@ -24,11 +24,11 @@
     .comment-input {
         text-align: center;
         margin: 20px auto;
-        width: 100%; /* 最大化输入框长度 */
+        width: 80%; /* 自适应页面宽度的80% */
     }
     input[type="text"] {
         padding: 10px;
-        width: 100%; /* 最大化输入框长度 */
+        width: 100%; /* 自适应页面宽度 */
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 16px;
@@ -47,7 +47,7 @@
     }
     .comments {
         margin: 20px auto;
-        width: 100%; /* 最大化评论展示区域宽度 */
+        width: 80%; /* 自适应页面宽度的80% */
         padding: 20px;
         background-color: #fff;
         border-radius: 10px;
@@ -63,8 +63,8 @@
         border-radius: 5px;
     }
     .comment-item small {
-        font-size: 14px;
-        color: #888;
+        font-size: 14px; /* 缩小字体大小为14px */
+        color: #888; /* 将时间颜色改为浅灰色 */
     }
     .comment-nickname {
         font-weight: bold;
@@ -75,8 +75,8 @@
         top: 5px;
         right: 5px;
         cursor: pointer;
-        width: 15px;
-        height: 15px;
+        width: 15px; /* 缩小一半 */
+        height: 15px; /* 缩小一半 */
     }
     .clear-comments {
         text-align: center;
@@ -108,6 +108,7 @@
             return;
         }
 
+        // 将表情文本转换为对应的表情图标
         commentText = parseEmojis(commentText);
 
         var commentsList = document.getElementById('commentsList');
@@ -122,7 +123,7 @@
         
         var deleteButton = document.createElement('img');
         deleteButton.classList.add('delete-button');
-        deleteButton.src = 'https://img.icons8.com/ios-glyphs/15/008000/trash--v1.png';
+        deleteButton.src = 'https://img.icons8.com/ios-glyphs/15/008000/trash--v1.png'; // 绿色垃圾桶图标
         deleteButton.onclick = function() {
             commentsList.removeChild(newComment);
         };
@@ -132,12 +133,16 @@
 
         commentInput.value = '';
 
+        // 滑动到最新评论处
         commentsList.scrollTop = commentsList.scrollHeight;
 
         commentId++;
     }
 
+    // 函数用于将表情文本转换为对应的表情图标
     function parseEmojis(text) {
+        // 在实际应用中，您可能需要使用专门的表情库或API进行转换
+        // 这里简单地替换示例文本中的表情代码
         text = text.replace(':)', '😊');
         text = text.replace(':(', '😢');
         text = text.replace(':D', '😄');
@@ -147,13 +152,8 @@
 
     function clearAllComments() {
         var commentsList = document.getElementById('commentsList');
-        commentsList.innerHTML = '';
+        commentsList.innerHTML = ''; // 清空评论
     }
 </script>
 </body>
 </html>
-
-
-温馨提示：
-此空间不保留任何信息，关闭即删。
-讲乜都无人可以追查，请放心鸠up！
