@@ -1,147 +1,113 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>郭的私密聊天室</title>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Arial', sans-serif;
-        background-color: #f2f2f2; /* 更柔和的灰色背景 */
-        color: #333;
-    }
-    h1 {
-        font-size: 2em;
-        font-weight: bold;
-        color: #0077cc;
-        text-align: center;
-        padding: 20px 0;
-        margin: 0;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .comments {
-        margin: 20px auto;
-        width: 80%; /* 设置评论展示区域宽度 */
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        overflow: auto;
-        max-height: 400px;
-    }
-    .comment-item {
-        position: relative;
-        padding: 10px;
-        margin: 10px 0;
-        background-color: #fff8dc; /* 浅黄色背景 */
-        border-radius: 5px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 添加细微阴影效果 */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .comment-item small {
-        font-size: 12px; /* 缩小发表时间字体大小 */
-        color: #777; /* 更浅的灰色 */
-    }
-    .delete-btn {
-        background-color: transparent; /* 去掉背景色 */
-        color: #ffd700; /* 黄色 */
-        border: none;
-        border-radius: 50%;
-        padding: 5px;
-        cursor: pointer;
-    }
-    .delete-btn:hover {
-        color: #eec900; /* 深黄色 */
-    }
-    .comment-text {
-        flex: 1;
-    }
-    .comment-input {
-        text-align: center;
-        margin: 20px auto; /* 设置输入框与评论展示区域之间的间距 */
-        width: 80%; /* 设置输入框宽度 */
-    }
-    input[type="text"] {
-        padding: 10px;
-        width: 70%; /* 调整输入框宽度 */
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-    button {
-        padding: 10px 20px;
-        background-color: #0077cc;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    button:hover {
-        background-color: #0056b3;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+  }
+  #chat-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+  }
+  #chat-title {
+    text-align: center;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  #messages {
+    overflow-y: auto;
+    max-height: 300px;
+    margin-bottom: 20px;
+    padding-right: 20px;
+  }
+  .message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    position: relative;
+  }
+  .message .time {
+    font-size: 12px;
+    color: #888888;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+  #input-message {
+    width: calc(100% - 40px);
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  #send-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
-<h1>郭的私密聊天室</h1>
-<div class="comments" id="commentsList"></div>
-<div class="comment-input">
-    <input type="text" id="commentInput" placeholder="发表评论">
-    <button onclick="addComment()">发表</button>
+
+<div id="chat-container">
+  <div id="chat-title">郭的私密聊天室</div>
+  <div id="messages"></div>
+  <input type="text" id="input-message" placeholder="输入你的消息...">
+  <button id="send-button">发送</button>
 </div>
 
 <script>
-    var commentId = 0;
+  const messagesContainer = document.getElementById('messages');
+  const inputMessage = document.getElementById('input-message');
+  const sendButton = document.getElementById('send-button');
 
-    function addComment() {
-        var commentInput = document.getElementById('commentInput');
-        var commentText = commentInput.value;
-        if (commentText.trim() === '') {
-            alert('请输入评论');
-            return;
-        }
+  // Function to add a message to the chat
+  function addMessage(messageContent, time) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    messageElement.innerHTML = messageContent + `<span class="time">${time}</span>`;
+    messagesContainer.appendChild(messageElement);
+  }
 
-        commentText = parseEmojis(commentText);
-
-        var commentsList = document.getElementById('commentsList');
-        var newComment = document.createElement('div');
-        newComment.classList.add('comment-item');
-        
-        var commentContent = document.createElement('span');
-        var currentTime = new Date();
-        var formattedTime = currentTime.toLocaleString(); // 获取格式化的时间字符串
-        commentContent.innerHTML = 'A: ' + commentText + '<br>' + '<small>' + formattedTime + '</small>'; // 在评论后添加时间
-        commentContent.classList.add('comment-text');
-        newComment.appendChild(commentContent);
-
-        var deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('delete-btn');
-        deleteBtn.innerHTML = '&#128465;'; // 垃圾桶图标
-        deleteBtn.onclick = function() {
-            commentsList.removeChild(newComment);
-        };
-        newComment.appendChild(deleteBtn);
-
-        commentsList.appendChild(newComment);
-
-        commentInput.value = '';
-
-        commentsList.scrollTop = commentsList.scrollHeight;
-
-        commentId++;
+  // Function to handle sending a message
+  function sendMessage() {
+    const message = inputMessage.value;
+    if (message.trim() !== '') {
+      const currentTime = new Date().toLocaleTimeString();
+      addMessage(message, currentTime);
+      inputMessage.value = '';
+    } else {
+      alert('请输入消息内容！');
     }
+  }
 
-    function parseEmojis(text) {
-        text = text.replace(':)', '😊');
-        text = text.replace(':(', '😢');
-        text = text.replace(':D', '😄');
+  // Event listener for send button click
+  sendButton.addEventListener('click', sendMessage);
 
-        return text;
+  // Event listener for pressing enter key to send message
+  inputMessage.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      sendMessage();
     }
+  });
 </script>
+
 </body>
 </html>
