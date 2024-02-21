@@ -24,11 +24,11 @@
     .comment-input {
         text-align: center;
         margin: 20px auto;
-        width: 33%; /* 缩短三分之一 */
+        width: 80%; /* 自适应屏幕宽度的80% */
     }
     input[type="text"] {
         padding: 10px;
-        width: 60%; /* 缩短三分之一 */
+        width: 100%; /* 自适应屏幕宽度 */
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 16px;
@@ -47,7 +47,7 @@
     }
     .comments {
         margin: 20px auto;
-        width: 33%; /* 缩短三分之一 */
+        width: 80%; /* 自适应屏幕宽度的80% */
         padding: 20px;
         background-color: #fff;
         border-radius: 10px;
@@ -61,6 +61,10 @@
         margin: 10px 0;
         background-color: #f9f9f9;
         border-radius: 5px;
+    }
+    .comment-item small {
+        font-size: 14px; /* 缩小字体大小为14px */
+        color: #888; /* 将时间颜色改为浅灰色 */
     }
     .comment-nickname {
         font-weight: bold;
@@ -112,7 +116,9 @@
         newComment.classList.add('comment-item');
         
         var commentContent = document.createElement('span');
-        commentContent.innerHTML = 'A: ' + commentText; // 使用A作为昵称示例
+        var currentTime = new Date();
+        var formattedTime = currentTime.toLocaleString(); // 获取格式化的时间字符串
+        commentContent.innerHTML = 'A: ' + commentText + '<br>' + '<small>' + formattedTime + '</small>'; // 在评论后添加时间
         newComment.appendChild(commentContent);
         
         var deleteButton = document.createElement('img');
@@ -151,5 +157,3 @@
 </script>
 </body>
 </html>
-
-帮我完善这份代码，以确保包括 HTML 结构、CSS 样式和 JavaScript 脚本
