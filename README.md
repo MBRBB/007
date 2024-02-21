@@ -24,7 +24,7 @@
     .comment-input {
         text-align: center;
         margin: 20px auto;
-        width: 80%; /* 自适应屏幕宽度的80% */
+        width: 20%; /* 缩短五分之一 */
     }
     input[type="text"] {
         padding: 10px;
@@ -34,7 +34,7 @@
         font-size: 16px;
     }
     button {
-        padding: 10px 20px;
+        padding: 5px 10px; /* 缩小一倍 */
         background-color: #0077cc;
         color: #fff;
         border: none;
@@ -47,7 +47,7 @@
     }
     .comments {
         margin: 20px auto;
-        width: 80%; /* 自适应屏幕宽度的80% */
+        width: 20%; /* 缩短五分之一 */
         padding: 20px;
         background-color: #fff;
         border-radius: 10px;
@@ -75,8 +75,8 @@
         top: 5px;
         right: 5px;
         cursor: pointer;
-        width: 15px; /* 缩小一半 */
-        height: 15px; /* 缩小一半 */
+        width: 7.5px; /* 缩小一倍 */
+        height: 7.5px; /* 缩小一倍 */
     }
     .clear-comments {
         text-align: center;
