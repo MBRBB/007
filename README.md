@@ -21,11 +21,11 @@ body {
 
 #chat_messages {
   text-align: left;
-  margin: 100px auto 0 auto; /* 居中显示，顶部留出空间给主题 */
+  margin: 20px auto; /* 居中显示，顶部留出空间给主题 */
   max-width: 600px; /* 限制留言板宽度 */
   padding: 20px;
   overflow-y: auto; /* 垂直滚动条 */
-  max-height: calc(100vh - 200px); /* 最大高度，减去主题的高度 */
+  max-height: calc(100vh - 250px); /* 最大高度，减去主题的高度和输入框的高度 */
   z-index: 999; /* 保证留言展示区域位于主题下方 */
 }
 
@@ -69,6 +69,7 @@ body {
   box-sizing: border-box; /* 让内边距和边框计入总宽度 */
   border: 1px solid #ccc; /* 边框 */
   border-radius: 4px; /* 圆角 */
+  margin-bottom: 10px; /* 添加底部间距 */
 }
 
 #sendButton {
@@ -87,7 +88,7 @@ body {
 <body>
 
 <div id="chatroom">
-  <h1>郭的私密聊天室</h1>
+  <h1>郭的留言板</h1>
 </div>
 
 <div id="chat_messages">
@@ -96,7 +97,7 @@ body {
 
 <div id="chat_input">
   <input type="text" id="messageInput" placeholder="输入留言...">
-  <button id="sendButton" onclick="sendMessage()">发送留言</button>
+  <button id="sendButton" onclick="sendMessage()">发送</button>
 </div>
 
 <script>
